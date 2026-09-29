@@ -5,7 +5,8 @@
   },
   "workspace": {
     "library": [
-      ".tools/cache/wow-api/Annotations/Core"
+      ".tools/cache/wow-api/Annotations/Core",
+      ".tools/cache/framexml-src/Annotations"
     ],
     "ignoreDir": [
       ".tools",
@@ -34,6 +35,18 @@
     "severity": {
       "undefined-global": "error",
       "global-in-non-module": "error"
-    }
+    },
+    "globals": [
+      "CUSTOM_CLASS_COLORS",
+      "NSAPI",
+      "EasyNicknameAPI",
+      "LiquidAPI",
+      "TimelineReminders",
+      "RG_ALTS_SETTINGS",
+      "FarmHud",
+      "PawnCommon",
+      "PawnRegisterThirdPartyBag",
+      "PawnShouldItemLinkHaveUpgradeArrow"
+    ]
   }
 }

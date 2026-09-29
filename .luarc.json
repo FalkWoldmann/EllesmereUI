@@ -8,7 +8,8 @@
     "debug": "disable"
   },
   "workspace.library": [
-    ".tools/cache/wow-api/Annotations/Core"
+    ".tools/cache/wow-api/Annotations/Core",
+    ".tools/cache/framexml-src/Annotations"
   ],
   "workspace.ignoreDir": [
     ".tools",
@@ -28,5 +29,17 @@
   "diagnostics.severity": {
     "undefined-global": "Error",
     "lowercase-global": "Error"
-  }
+  },
+  "diagnostics.globals": [
+    "CUSTOM_CLASS_COLORS",
+    "NSAPI",
+    "EasyNicknameAPI",
+    "LiquidAPI",
+    "TimelineReminders",
+    "RG_ALTS_SETTINGS",
+    "FarmHud",
+    "PawnCommon",
+    "PawnRegisterThirdPartyBag",
+    "PawnShouldItemLinkHaveUpgradeArrow"
+  ]
 }

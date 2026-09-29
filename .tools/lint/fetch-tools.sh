@@ -8,6 +8,10 @@ LUALS_VERSION="3.19.1"
 # Ketho/vscode-wow-api: community WoW API annotations (LuaCATS) for LuaLS.
 WOW_API_COMMIT="d0b5b51fac4c52c493371b9b18e66ce604ea4326"
 EMMYLUA_VERSION="0.25.1"
+# NumyAddon/FramexmlAnnotations, branch live-mix-into-source (retail 12.1.0 build
+# 69933): Blizzard's FrameXML Lua source with generated annotations. Provides the
+# FrameXML globals (RAID_CLASS_COLORS, RegisterStateDriver, CharacterFrame, ...).
+FRAMEXML_COMMIT="cdb5b000a59967b0ebfea3f6e989cf4f50175013"
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 CACHE="$ROOT/.tools/cache"
@@ -36,6 +40,15 @@ if [[ "$(git -C "$CACHE/wow-api" rev-parse HEAD 2>/dev/null)" != "$WOW_API_COMMI
     git init -q "$CACHE/wow-api"
     git -C "$CACHE/wow-api" fetch -q --depth 1 https://github.com/Ketho/vscode-wow-api "$WOW_API_COMMIT"
     git -C "$CACHE/wow-api" checkout -q FETCH_HEAD
+fi
+
+# Blizzard FrameXML source + annotations (~46 MB)
+if [[ "$(git -C "$CACHE/framexml-src" rev-parse HEAD 2>/dev/null)" != "$FRAMEXML_COMMIT" ]]; then
+    echo "Fetching NumyAddon/FramexmlAnnotations @ ${FRAMEXML_COMMIT:0:7}"
+    rm -rf "$CACHE/framexml-src"
+    git init -q "$CACHE/framexml-src"
+    git -C "$CACHE/framexml-src" fetch -q --depth 1 https://github.com/NumyAddon/FramexmlAnnotations "$FRAMEXML_COMMIT"
+    git -C "$CACHE/framexml-src" checkout -q FETCH_HEAD
 fi
 
 # emmylua_check (optional, for trying the Rust analyzer by hand): only with --with-emmylua

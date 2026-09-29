@@ -8,5 +8,6 @@
   finding is a genuine false positive, run `.tools/lint/check.sh --update-baseline`
   and explain why in the PR. Details: `.tools/lint/README.md`.
 - WoW API signatures: the annotations fetched into
-  `.tools/cache/wow-api/Annotations/Core` (after one `check.sh` run) are the
+  `.tools/cache/wow-api/Annotations/Core` and Blizzard's FrameXML source in
+  `.tools/cache/framexml-src/Annotations` (after one `check.sh` run) are the
   quickest local reference.

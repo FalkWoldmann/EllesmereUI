@@ -1,13 +1,15 @@
 # Lua static analysis
 
-Type-aware linting for EllesmereUI with **lua-language-server (LuaLS)** and the
-community WoW API annotations from **[Ketho/vscode-wow-api]**. Nothing here ships
+Type-aware linting for EllesmereUI with **lua-language-server (LuaLS)**, the
+community WoW API annotations from **[Ketho/vscode-wow-api]** and Blizzard's
+FrameXML source with generated annotations from **[NumyAddon/FramexmlAnnotations]**
+(retail live branch). Nothing here ships
 in the addon zip (`.pkgmeta` ignores it).
 
 ## Run it
 
 ```sh
-.tools/lint/check.sh                    # same gate as CI, ~80s on the full repo
+.tools/lint/check.sh                    # same gate as CI, ~90s on the full repo
 .tools/lint/check.sh --update-baseline  # accept the current findings, then commit the baseline
 ```
 
@@ -17,7 +19,7 @@ that file.
 
 ## How the gate works
 
-The codebase predates annotations, so a full check reports ~5k existing findings.
+The codebase predates annotations, so a full check reports ~2.5k existing findings.
 `luals_check.py` reduces each finding to a line-independent fingerprint
 `(file, code, message)` and compares counts with `luals-baseline.json`:
 
@@ -47,11 +49,11 @@ purpose (false positive)? Same command, and say why in the PR.
 
 ## Known gaps / next steps
 
-- **Blizzard FrameXML globals** (`RAID_CLASS_COLORS`, `CharacterFrame`,
-  `EditModeManagerFrame`, ...) are most of the ~2.6k baselined `undefined-global`s.
-  They are covered by the `Annotations/FrameXML` git submodule of vscode-wow-api
-  ([NumyAddon/FramexmlAnnotations]), which `fetch-tools.sh` doesn't fetch yet.
-  Adding it and regenerating the baseline should cut the baseline sharply.
+- **Bump annotations with the game.** After a patch, point `FRAMEXML_COMMIT` in
+  `fetch-tools.sh` at the newest `live-mix-into-source` commit, bump
+  `WOW_API_COMMIT`, and run `--update-baseline`.
+- **Optional third-party addon APIs** (Pawn, Northern Sky, ...) are declared in
+  `.luarc.json` `diagnostics.globals`. Add new integrations there, not in code.
 - **Formatting:** StyLua was evaluated and not adopted. Any config reformats 213 of
   220 files (+224k/-159k lines), which would conflict with every upstream merge.
 - **Annotations:** adding `---@class`/`---@param` to the shared core
