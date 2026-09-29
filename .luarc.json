@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime.version": "Lua 5.1",
+  "runtime.builtin": {
+    "io": "disable",
+    "os": "disable",
+    "package": "disable",
+    "debug": "disable"
+  },
+  "workspace.library": [
+    ".tools/cache/wow-api/Annotations/Core"
+  ],
+  "workspace.ignoreDir": [
+    ".tools",
+    ".git",
+    "Libs",
+    "EllesmereUIUnitFrames/Libs"
+  ],
+  "workspace.checkThirdParty": false,
+  "diagnostics.disable": [
+    "unused-local",
+    "redefined-local",
+    "empty-block",
+    "invisible",
+    "deprecated",
+    "duplicate-doc-field"
+  ],
+  "diagnostics.severity": {
+    "undefined-global": "Error",
+    "lowercase-global": "Error"
+  }
+}

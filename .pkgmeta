@@ -50,6 +50,11 @@ ignore:
   - .gitattributes
   - .kiro
   - .tools
+  - .luarc.json
+  - .emmyrc.json
+  - .editorconfig
+  - .vscode
+  - AGENTS.md
   - CONTRIBUTING_TRANSLATIONS.md
   - EllesmereUILocales/_keys.txt
   - README.md

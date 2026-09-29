@@ -1,0 +1,12 @@
+# Matches the existing code: 4-space indent, LF. Deliberately does NOT trim
+# whitespace or force final newlines -- that would churn untouched lines and
+# conflict with upstream merges.
+root = true
+
+[*]
+end_of_line = lf
+indent_style = space
+indent_size = 4
+
+[*.{yml,yaml,json}]
+indent_size = 2

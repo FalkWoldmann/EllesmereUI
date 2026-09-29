@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/main/crates/emmylua_code_analysis/resources/schema.json",
+  "runtime": {
+    "version": "Lua5.1"
+  },
+  "workspace": {
+    "library": [
+      ".tools/cache/wow-api/Annotations/Core"
+    ],
+    "ignoreDir": [
+      ".tools",
+      ".git",
+      "Libs",
+      "EllesmereUIUnitFrames/Libs"
+    ],
+    "ignoreGlobs": [
+      ".tools/**",
+      "Libs/**",
+      "EllesmereUIUnitFrames/Libs/**"
+    ]
+  },
+  "diagnostics": {
+    "disable": [
+      "unused",
+      "redefined-local",
+      "deprecated",
+      "duplicate-doc-field",
+      "access-invisible",
+      "unnecessary-if",
+      "preferred-local-alias",
+      "call-non-callable",
+      "await-in-sync"
+    ],
+    "severity": {
+      "undefined-global": "error",
+      "global-in-non-module": "error"
+    }
+  }
+}

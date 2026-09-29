@@ -1,0 +1,49 @@
+name: Lua static analysis
+
+# LuaLS (lua-language-server) with the community WoW API annotations, gated on
+# a committed baseline: existing findings are tolerated, NEW blocking findings
+# (undefined/leaked globals, duplicate keys/methods, ...) fail the job.
+# See .tools/lint/README.md.
+
+on:
+  pull_request:
+    paths:
+      - '**/*.lua'
+      - '.luarc.json'
+      - '.tools/lint/**'
+      - '.github/workflows/lint.yml'
+  push:
+    branches: [main]
+    paths:
+      - '**/*.lua'
+      - '.luarc.json'
+      - '.tools/lint/**'
+      - '.github/workflows/lint.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  luals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Cache toolchain
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .tools/cache
+          key: lint-tools-${{ runner.os }}-${{ hashFiles('.tools/lint/fetch-tools.sh') }}
+
+      - name: Fetch pinned toolchain
+        run: .tools/lint/fetch-tools.sh
+
+      - name: LuaLS check against baseline
+        run: python3 .tools/lint/luals_check.py
