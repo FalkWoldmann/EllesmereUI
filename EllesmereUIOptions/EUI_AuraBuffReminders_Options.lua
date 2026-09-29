@@ -246,6 +246,10 @@ initFrame:SetScript("OnEvent", function(self)
         return -(totalW / 2) + (sz / 2)
     end
 
+    -- Preview header base height (without the hint). Declared above
+    -- UpdatePreviewHeader, its first writer, so it sets this local, not a global.
+    local _eabrHeaderBaseH = 0
+
     local function UpdatePreviewHeader()
         if not _previewIcons or #_previewIcons == 0 then return end
         local d = DDB()
@@ -336,7 +340,7 @@ initFrame:SetScript("OnEvent", function(self)
     ---------------------------------------------------------------------------
     --  Preview click-to-scroll infrastructure
     ---------------------------------------------------------------------------
-    local _eabrHeaderBaseH = 0
+    -- _eabrHeaderBaseH: declared above UpdatePreviewHeader
 
     --- Rebuild the preview header with scroll compensation.
     --- SetContentHeader tears down and rebuilds, which can cause scroll jumps.

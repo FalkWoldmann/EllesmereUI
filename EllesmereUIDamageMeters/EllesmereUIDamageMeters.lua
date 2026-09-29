@@ -1351,6 +1351,8 @@ local StartSharedTicker  -- forward declaration (defined in refresh section)
 local ScheduleStopTicker -- forward declaration (defined in refresh section)
 local _sharedTicker      -- the live refresh ticker (assigned in refresh section)
 local _combatGen = 0     -- monotonic segment token; stale deferred teardowns compare against it
+local _saTimer           -- forward declaration (standalone combat timer frame, built in its section)
+local _saTimerPreview = false -- forward declaration (standalone combat timer preview state)
 
 -- Keystone start: wipe data so Overall = this dungeon run
 -- Keystone end: auto-swap windows from Current to Overall (if enabled)
@@ -5535,11 +5537,11 @@ ns.ApplyDMSize = function()
 end
 
 -- Standalone Combat Timer
-local _saTimer  -- frame reference
+-- _saTimer (frame reference): forward-declared near the top
 local _saTimerFS -- fontstring
 local _saTimerBG -- backdrop texture
 local _saTimerBorder -- PP border child frame
-local _saTimerPreview = false
+-- _saTimerPreview: forward-declared near the top
 local _saTimerLive = false  -- last live/idle state seen (drives OOC desaturation)
 
 local function GetSATimerPreviewText()

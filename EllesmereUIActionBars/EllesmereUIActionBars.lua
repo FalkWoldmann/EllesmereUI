@@ -1641,6 +1641,9 @@ end
 -- because SecureSetupHandler_PrepareRefs references it.
 local barButtons = {}
 ns.barButtons = barButtons
+-- Forward declaration (populated in Button Creation below); CurrentManualPage
+-- in the paging section reads it before that section.
+local barFrames  = {}   -- [barKey] = secure header frame
 
 local _secureHandler = CreateFrame("Frame", "EABSecureSetupHandler", UIParent, "SecureHandlerAttributeTemplate")
 
@@ -1929,7 +1932,7 @@ end
 local allButtons = {}   -- [actionSlot] = button
 -- barButtons: forward-declared above (before SecureSetupHandler_PrepareRefs)
 local buttonToBar = {}  -- [btn] = { barKey, index } for taint-safe slot resolution
-local barFrames  = {}   -- [barKey] = secure header frame
+-- barFrames: forward-declared above (next to barButtons)
 local dataBarFrames = {} -- [barKey] = data bar frame (XP/Rep) populated later in SetupDataBars
 local blizzMovableHolders = {} -- [barKey] = holder frame for Blizzard movable frames (ExtraAction, Encounter)
 local extraBarHolders = {} -- [barKey] = holder frame for extra bars (MicroBar, BagBar)

@@ -193,6 +193,8 @@ end
 local ApplyAll  -- forward declaration
 
 -- Keyed queue entry: repeat requests before regen collapse into one apply.
+local ApplyMinimap  -- forward declaration (defined below; button drag-release calls it)
+
 local function QueueApplyAll()
     ns.CombatQueue.Defer("ApplyAll", ApplyAll)
 end
@@ -4308,7 +4310,7 @@ EBS._ApplyClassicMinimapChrome = function(minimap, mapSize)
     header:Show()
 end
 
-local function ApplyMinimap()
+ApplyMinimap = function()
     if TEMP_DISABLED.minimap then return end
     if InCombatLockdown() then QueueApplyAll(); return end
 

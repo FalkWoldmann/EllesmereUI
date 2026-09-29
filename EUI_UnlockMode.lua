@@ -6556,14 +6556,14 @@ local function GetActionBarVisualSize(barKey)
     if not EAB or not EAB.db then return nil end
     local info = BAR_LOOKUP[barKey]
     if not info then return nil end
-    local s = EAB.db.profile.bars[lookupKey]
+    local s = EAB.db.profile.bars[barKey]
     if not s then return nil end
 
     -- Use standard button size (45x45) — our LayoutBar uses this for MainBar
     -- and reads from the button for others.
     local btnW, btnH = 45, 45
     local btn1 = _G[info.buttonPrefix .. "1"]
-    if btn1 and lookupKey ~= "MainBar" then
+    if btn1 and barKey ~= "MainBar" then
         local bw = btn1:GetWidth()
         if bw and bw > 1 then btnW, btnH = bw, btn1:GetHeight() end
     end

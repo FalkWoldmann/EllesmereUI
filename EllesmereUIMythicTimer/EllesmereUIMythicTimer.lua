@@ -862,6 +862,10 @@ local function OnUpdateFallback(_, dt)
     OnTimerTick()
 end
 
+-- Standalone frame (created further down). Declared here so the timer-loop
+-- helpers below see the local, not a nil global.
+local standaloneFrame
+
 local _timerLoopWanted = false
 local function StartTimerLoop()
     _timerLoopWanted = true
@@ -1124,8 +1128,7 @@ _G._EMT_ResetProfile = function()
     return true
 end
 
--- Standalone frame
-local standaloneFrame
+-- Standalone frame (standaloneFrame itself is declared above StartTimerLoop)
 local standaloneCreated = false
 local unlockLayoutActive = false -- force preview layout while Unlock Mode is open
 

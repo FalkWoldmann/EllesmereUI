@@ -287,6 +287,12 @@ local function ApplyTrail()
 end
 
 local _unlockHidGCD, _unlockHidCast
+-- GCD / cast circle state (built in their sections below). Declared up here so
+-- CursorWatchBody sees the locals rather than nil globals.
+local gcdRoot, gcdRing
+local gcdAttached = true  -- follows cursor by default
+local castRoot, castRing
+local castAttached = true
 -- Cursor glue + state watch, riding the suite's shared cursor service
 -- (EllesmereUI.Mouse) instead of a per-frame OnUpdate on the cursor frame:
 -- the glue is a Tier A motionOnly subscriber (per render frame while the cursor MOVES,
@@ -442,9 +448,6 @@ end
 -------------------------------------------------------------------------------
 --  GCD Circle
 -------------------------------------------------------------------------------
-local gcdRoot, gcdRing
-local gcdAttached = true  -- follows cursor by default
-
 local function GCD_DB()
     local p = ECL.db and ECL.db.profile
     return p and p.gcd or {}
@@ -598,9 +601,6 @@ end
 -------------------------------------------------------------------------------
 --  Cast Bar Circle
 -------------------------------------------------------------------------------
-local castRoot, castRing
-local castAttached = true
-
 local function Cast_DB()
     local p = ECL.db and ECL.db.profile
     return p and p.castCircle or {}

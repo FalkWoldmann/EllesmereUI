@@ -5631,6 +5631,9 @@ end
 -- nor set the stamp. The gen breaks the window whenever paint INPUTS change mid-frame: settings
 -- writes (_BumpAbsorbGen), profile swaps (_ERF_RefreshAll) and cross-module pushes (UpdateAllFrames).
 ns._paintGen = 0
+-- Raid options preview state. Declared here, above its first reader: the preview
+-- section further down only toggles it (ShowPreview / HidePreview).
+local previewActive = false
 local function UpdateAllButtons()
     if previewActive then return end  -- real buttons hidden during preview
     local now, gen = GetTime(), ns._paintGen
@@ -15111,7 +15114,6 @@ end
 --  Shows 20 buttons with randomized class colors and names so the user
 --  can see their settings applied without needing a real group.
 -------------------------------------------------------------------------------
-local previewActive = false
 ns._PV_CLASS_TOKENS = EllesmereUI.CLASS_TOKEN_ORDER
 ns._PV_TANK_CLASSES   = { "WARRIOR", "PALADIN", "DEATHKNIGHT", "MONK", "DRUID", "DEMONHUNTER" }
 ns._PV_HEALER_CLASSES = { "PRIEST", "PALADIN", "SHAMAN", "MONK", "DRUID", "EVOKER" }
@@ -18989,6 +18991,8 @@ local function HidePreview(skipRestore)
     if ns._ApplyTierOffset then ns._ApplyTierOffset() end
     UpdateVisibility()
     if ns._UpdatePartyVisibility then ns._UpdatePartyVisibility() end
+    -- Real-button paints are skipped while the preview is up; catch them up now.
+    UpdateAllButtons()
 end
 
 local function ApplyPreviewMode()
